@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luke Lacy — Sport Science & Performance Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #2D9CFF;
+    --blue-dim: #1a6bb5;
+    --blue-glow: rgba(45,156,255,0.12);
+    --bg: #0A0C0F;
+    --bg-card: #111418;
+    --bg-card2: #161A20;
+    --border: rgba(255,255,255,0.07);
+    --border-blue: rgba(45,156,255,0.3);
+    --text: #F0F2F5;
+    --text-muted: #7A8490;
+    --text-mid: #B0B8C4;
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 64px;
+    background: rgba(10,12,15,0.9);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none;
+  }
+  .nav-logo img {
+    width: 36px; height: 36px; object-fit: contain;
+  }
+  .nav-logo-text {
+    font-family: var(--font-display);
+    font-size: 20px; font-weight: 700; letter-spacing: 0.04em;
+    color: var(--text);
+  }
+  .nav-logo-text span { color: var(--blue); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-muted); text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    padding: 120px 48px 80px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+  .hero-content-wrap {
+    position: relative; z-index: 1;
+    max-width: 1200px; margin: 0 auto; width: 100%;
+    display: grid; grid-template-columns: 1fr 360px;
+    align-items: center; gap: 64px;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-image: url('banner.png');
+    background-size: cover; background-position: center;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .hero-bg-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(10,12,15,0.95) 40%, rgba(10,12,15,0.5) 100%);
+    pointer-events: none;
+  }
+  .hero-inner { }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 28px;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 32px; height: 1px; background: var(--blue);
+  }
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(64px, 9vw, 110px);
+    font-weight: 800; line-height: 0.92;
+    letter-spacing: -0.01em; text-transform: uppercase; margin-bottom: 24px;
+  }
+  .hero-name .accent { color: var(--blue); }
+  .hero-tagline {
+    font-size: clamp(15px, 1.8vw, 19px); font-weight: 300;
+    color: var(--text-mid); max-width: 520px; margin-bottom: 48px; line-height: 1.75;
+  }
+  .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-block; padding: 14px 32px;
+    background: var(--blue); color: #fff;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none; border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: #1a8aee; transform: translateY(-1px); }
+  .btn-secondary {
+    display: inline-block; padding: 14px 32px;
+    background: transparent; color: var(--text);
+    font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; text-decoration: none;
+    border: 1px solid var(--border-blue);
+    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-1px); }
+
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 64px;
+    padding-top: 40px; border-top: 1px solid var(--border); flex-wrap: wrap;
+  }
+  .hero-stat-num {
+    font-family: var(--font-display); font-size: 36px; font-weight: 700;
+    color: var(--blue); line-height: 1;
+  }
+  .hero-stat-label {
+    font-size: 11px; font-weight: 500; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-muted); margin-top: 6px;
+  }
+
+  /* Hero profile photo */
+  .hero-photo-wrap {
+    display: flex; justify-content: center; align-items: flex-end;
+  }
+  .hero-photo-frame {
+    position: relative;
+    width: 340px;
+  }
+  .hero-photo-frame::before {
+    content: '';
+    position: absolute;
+    top: -8px; left: -8px; right: 8px; bottom: 8px;
+    border: 1px solid var(--border-blue);
+    pointer-events: none; z-index: 2;
+  }
+  .hero-photo-frame img {
+    width: 100%; display: block;
+    filter: grayscale(15%) contrast(1.05);
+    object-fit: cover;
+    object-position: top;
+    max-height: 480px;
+  }
+  .hero-photo-label {
+    position: absolute; bottom: -1px; left: 0; right: 0;
+    background: linear-gradient(transparent, rgba(10,12,15,0.95));
+    padding: 40px 20px 16px;
+    text-align: center;
+  }
+  .hero-photo-label span {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--blue);
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 48px; }
+  .section-inner { max-width: 1200px; margin: 0 auto; width: 100%; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 16px;
+  }
+  .section-label::before {
+    content: ''; display: block; width: 24px; height: 1px; background: var(--blue);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 56px); font-weight: 700;
+    text-transform: uppercase; line-height: 1; margin-bottom: 56px; letter-spacing: 0.01em;
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--bg); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+  }
+  .about-bio {
+    font-size: 16px; color: var(--text-mid); line-height: 1.85; margin-bottom: 24px;
+  }
+  .about-bio strong { color: var(--text); font-weight: 500; }
+  .about-goals { margin-top: 32px; }
+  .about-goals h3 {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 16px;
+  }
+  .about-goals ul { list-style: none; }
+  .about-goals li {
+    font-size: 14px; color: var(--text-mid); padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .about-goals li::before {
+    content: ''; display: block; width: 6px; height: 6px;
+    background: var(--blue); flex-shrink: 0;
+  }
+  .about-contact-card {
+    background: var(--bg-card); border: 1px solid var(--border); padding: 32px;
+  }
+  .contact-card-title {
+    font-family: var(--font-display); font-size: 20px; font-weight: 700;
+    text-transform: uppercase; margin-bottom: 24px; letter-spacing: 0.04em;
+  }
+  .contact-row {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 0; border-bottom: 1px solid var(--border);
+    font-size: 14px; color: var(--text-mid);
+  }
+  .contact-row:last-child { border-bottom: none; }
+  .contact-icon {
+    width: 36px; height: 36px; background: var(--blue-glow);
+    border: 1px solid var(--border-blue);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 15px;
+  }
+  .contact-row a { color: var(--blue); text-decoration: none; }
+  .contact-row a:hover { text-decoration: underline; }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--bg-card); }
+  .timeline { position: relative; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
+    width: 1px; background: var(--border-blue);
+  }
+  .timeline-item { padding-left: 40px; margin-bottom: 56px; position: relative; }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-dot {
+    position: absolute; left: -6px; top: 6px;
+    width: 13px; height: 13px; background: var(--blue);
+    border: 2px solid var(--bg-card); border-radius: 50%;
+  }
+  .timeline-date {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 8px;
+  }
+  .timeline-role {
+    font-family: var(--font-display); font-size: 26px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.1; margin-bottom: 4px;
+  }
+  .timeline-org {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;
+  }
+  .timeline-bullets { list-style: none; }
+  .timeline-bullets li {
+    font-size: 14px; color: var(--text-mid); padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .timeline-bullets li::before { content: '→'; color: var(--blue); flex-shrink: 0; margin-top: 1px; }
+
+  /* ── EDUCATION ── */
+  #education { background: var(--bg); }
+  .edu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .edu-card {
+    background: var(--bg-card); border: 1px solid var(--border); padding: 32px;
+    transition: border-color 0.2s;
+  }
+  .edu-card:hover { border-color: var(--border-blue); }
+  .edu-year {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 12px;
+  }
+  .edu-qual {
+    font-family: var(--font-display); font-size: 22px; font-weight: 700;
+    text-transform: uppercase; line-height: 1.1; margin-bottom: 8px;
+  }
+  .edu-inst { font-size: 13px; color: var(--text-muted); font-weight: 500; }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--bg-card); }
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+  .skill-group-title {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--blue); margin-bottom: 24px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border-blue);
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+  .skill-tag {
+    padding: 8px 16px; background: var(--bg-card2); border: 1px solid var(--border);
+    font-size: 13px; font-weight: 500; color: var(--text-mid); letter-spacing: 0.02em;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .skill-tag:hover { border-color: var(--border-blue); color: var(--blue); }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--bg); }
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .project-card {
+    background: var(--bg-card); border: 1px solid var(--border); overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+    display: flex; flex-direction: column;
+  }
+  .project-card:hover { border-color: var(--border-blue); transform: translateY(-3px); }
+  .project-card-header {
+    padding: 8px 20px; background: var(--blue);
+    display: flex; align-items: center;
+  }
+  .project-card-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+    text-transform: uppercase; color: rgba(255,255,255,0.9);
+  }
+  .project-img {
+    width: 100%; height: 220px; object-fit: cover; object-position: top;
+    display: block; border-bottom: 1px solid var(--border);
+  }
+  .project-img-multi {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    height: 220px; border-bottom: 1px solid var(--border);
+  }
+  .project-img-multi img {
+    width: 100%; height: 100%; object-fit: cover; object-position: top;
+    display: block; border-right: 1px solid var(--border);
+  }
+  .project-img-multi img:last-child { border-right: none; }
+  .project-body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+  .project-title {
+    font-family: var(--font-display); font-size: 24px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.02em; margin-bottom: 12px; line-height: 1.1;
+  }
+  .project-desc { font-size: 14px; color: var(--text-mid); line-height: 1.75; margin-bottom: 20px; flex: 1; }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tech-pill {
+    padding: 4px 12px; border: 1px solid var(--border-blue);
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--blue);
+  }
+
+  /* ── QUALIFICATIONS ── */
+  #qualifications { background: var(--bg-card); }
+  .quals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+  .qual-card {
+    background: var(--bg); border: 1px solid var(--border); padding: 24px;
+    display: flex; gap: 16px; align-items: flex-start; transition: border-color 0.2s;
+  }
+  .qual-card:hover { border-color: var(--border-blue); }
+  .qual-icon {
+    width: 40px; height: 40px; background: var(--blue-glow);
+    border: 1px solid var(--border-blue);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px;
+  }
+  .qual-name { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; line-height: 1.3; }
+  .qual-status { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .qual-status.active { color: var(--blue); }
+  .quals-note {
+    margin-top: 40px; padding: 20px 24px;
+    background: var(--bg-card2); border: 1px solid var(--border-blue);
+    display: flex; align-items: center; gap: 16px;
+  }
+  .quals-note-icon { font-size: 20px; flex-shrink: 0; }
+  .quals-note p { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+  .quals-note a { color: var(--blue); text-decoration: none; }
+  .quals-note a:hover { text-decoration: underline; }
+
+  /* ── VIDEO ── */
+  #video { background: var(--bg); }
+  .video-placeholder {
+    max-width: 760px; margin: 0 auto;
+    background: var(--bg-card); border: 1px solid var(--border);
+    aspect-ratio: 16/9;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+  }
+  .play-icon {
+    width: 72px; height: 72px; border: 2px solid var(--border-blue); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; color: var(--blue);
+  }
+  .video-note { text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 20px; }
+
+  /* ── CONTACT ── */
+  #contact { background: var(--bg-card); }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+  .contact-intro { font-size: 16px; color: var(--text-mid); line-height: 1.85; margin-bottom: 40px; }
+  .contact-links { display: flex; flex-direction: column; gap: 16px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 16px;
+    text-decoration: none; color: var(--text-mid); font-size: 14px; transition: color 0.2s;
+  }
+  .contact-link:hover { color: var(--blue); }
+  .contact-link-icon {
+    width: 44px; height: 44px; background: var(--blue-glow);
+    border: 1px solid var(--border-blue);
+    display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+  }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-label {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+  .form-input, .form-textarea {
+    background: var(--bg); border: 1px solid var(--border);
+    color: var(--text); font-family: var(--font-body); font-size: 14px;
+    padding: 12px 16px; outline: none; transition: border-color 0.2s; width: 100%;
+  }
+  .form-input:focus, .form-textarea:focus { border-color: var(--border-blue); }
+  .form-textarea { resize: vertical; min-height: 120px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--bg); border-top: 1px solid var(--border);
+    padding: 28px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo { display: flex; align-items: center; gap: 10px; }
+  .footer-logo img { width: 28px; height: 28px; object-fit: contain; }
+  .footer-name {
+    font-family: var(--font-display); font-size: 16px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.04em;
+  }
+  .footer-name span { color: var(--blue); }
+  .footer-copy { font-size: 12px; color: var(--text-muted); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    #hero { padding: 100px 24px 64px; }
+    .hero-content-wrap { grid-template-columns: 1fr; }
+    .hero-photo-wrap { display: none; }
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    section { padding: 72px 24px; }
+    .about-grid, .skills-grid, .projects-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .project-img-multi { grid-template-columns: 1fr 1fr; }
+    .project-img-multi img:last-child { display: none; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <img src="logo.png" alt="LL logo">
+    <span class="nav-logo-text">LUKE<span>.</span>LACY</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#qualifications">Qualifications</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-bg-overlay"></div>
+  <div class="hero-content-wrap">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Sport Science · Performance Analysis · Data & Technology</div>
+    <h1 class="hero-name">
+      LUKE<br><span class="accent">LACY</span>
+    </h1>
+    <p class="hero-tagline">
+      Turning data into competitive advantage. Sport scientist, performance analyst, and builder of tools that help athletes and teams perform at their peak.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-secondary">Get in Touch</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">AFL</div>
+        <div class="hero-stat-label">Elite Level Internship</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">2026</div>
+        <div class="hero-stat-label">Graduating EOY</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">R + Web</div>
+        <div class="hero-stat-label">Dashboard Development</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-photo-wrap">
+    <div class="hero-photo-frame">
+      <img src="profile_picture.png" alt="Luke Lacy — Sport Scientist & Performance Analyst">
+      <div class="hero-photo-label">
+        <span>Exercise & Sport Science · Swinburne University</span>
+      </div>
+    </div>
+  </div>
+  </div><!-- /hero-content-wrap -->
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">About Me</div>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="about-grid">
+      <div>
+        <p class="about-bio">
+          I'm <strong>Luke Lacy</strong>, a final-year Bachelor of Sport and Exercise Science student at Swinburne University of Technology, currently completing an elite-level internship with the <strong>Richmond Football Club</strong> as a Performance Analyst.
+        </p>
+        <p class="about-bio">
+          I'm passionate about two things: how exercise science can improve the lives of everyday people, and how <strong>data and performance analysis can be used as a genuine competitive tool in elite sport</strong>. I'm driven to make an impact and deliver results through evidence-based, data-driven work.
+        </p>
+        <p class="about-bio">
+          Beyond sport science, I have a strong interest in building technology — from interactive R dashboards and Shiny apps to fully custom web and mobile applications — that makes data accessible and actionable.
+        </p>
+        <div class="about-goals">
+          <h3>Career Goals</h3>
+          <ul>
+            <li>Work in high-performance sport as a performance analyst or sport scientist</li>
+            <li>Develop data-driven tools that give teams and athletes a competitive edge</li>
+            <li>Bridge the gap between exercise science research and real-world application</li>
+            <li>Contribute to athlete wellbeing and long-term performance outcomes</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="about-contact-card">
+          <div class="contact-card-title">Contact Details</div>
+          <div class="contact-row">
+            <div class="contact-icon">✉</div>
+            <div>
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:4px;">Email</div>
+              <a href="mailto:luke.lacee14@gmail.com">luke.lacee14@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-icon">in</div>
+            <div>
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:4px;">LinkedIn</div>
+              <a href="https://www.linkedin.com/in/luke-lacy-5389171a4/" target="_blank">linkedin.com/in/luke-lacy</a>
+            </div>
+          </div>
+          <div class="contact-row">
+            <div class="contact-icon">📍</div>
+            <div>
+              <div style="font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:var(--text-muted);margin-bottom:4px;">Location</div>
+              Melbourne, Victoria
+            </div>
+          </div>
+          <div style="margin-top:28px;padding:16px 20px;background:var(--bg-card2);border:1px solid var(--border-blue);display:flex;align-items:center;gap:14px;">
+            <div style="font-size:20px;flex-shrink:0;">📄</div>
+            <div>
+              <div style="font-size:12px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--blue);margin-bottom:4px;">Resume</div>
+              <div style="font-size:13px;color:var(--text-muted);">Available upon request — <a href="mailto:luke.lacee14@gmail.com" style="color:var(--blue);text-decoration:none;">email me</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-label">Experience</div>
+    <h2 class="section-title">Where I've Worked</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">January 2026 — September 2026</div>
+        <div class="timeline-role">Performance Analyst Intern</div>
+        <div class="timeline-org">Richmond Football Club · VFL / AFL</div>
+        <ul class="timeline-bullets">
+          <li>Built interactive data dashboards and analytics interfaces using R and Shiny to visualise player and team performance</li>
+          <li>Operated Hudl Sportscode to construct code windows and output windows for live and post-game video analysis</li>
+          <li>Developed proficiency in Champion Data statistical definitions to accurately code AFL games</li>
+          <li>Managed setup and packdown of the VFL game day coaches box, supporting staff with real-time analytics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-label">Education</div>
+    <h2 class="section-title">Academic Background</h2>
+    <div class="edu-grid">
+      <div class="edu-card">
+        <div class="edu-year">2024 — 2026 · In Progress</div>
+        <div class="edu-qual">Bachelor of Sport & Exercise Science</div>
+        <div class="edu-inst">Swinburne University of Technology · Hawthorn</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-year">Completed</div>
+        <div class="edu-qual">Diploma of Health Science</div>
+        <div class="edu-inst">Swinburne University of Technology</div>
+      </div>
+      <div class="edu-card">
+        <div class="edu-year">Graduated 2015</div>
+        <div class="edu-qual">VCE Graduate</div>
+        <div class="edu-inst">Frankston High School</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">Skills</div>
+    <h2 class="section-title">What I Bring</h2>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-group-title">Technical Skills</div>
+        <div class="skill-tags">
+          <span class="skill-tag">R Programming</span>
+          <span class="skill-tag">Shiny App Development</span>
+          <span class="skill-tag">Hudl Sportscode</span>
+          <span class="skill-tag">Champion Data</span>
+          <span class="skill-tag">Performance Dashboards</span>
+          <span class="skill-tag">GPS Analysis</span>
+          <span class="skill-tag">Video Analysis</span>
+          <span class="skill-tag">Athlete Monitoring</span>
+          <span class="skill-tag">HTML / CSS / JS</span>
+          <span class="skill-tag">Web App Development</span>
+          <span class="skill-tag">API Integration</span>
+          <span class="skill-tag">Data Visualisation</span>
+          <span class="skill-tag">Exercise Prescription</span>
+          <span class="skill-tag">Strength & Conditioning</span>
+          <span class="skill-tag">First Aid & CPR</span>
+        </div>
+      </div>
+      <div>
+        <div class="skill-group-title">Interpersonal Skills</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Leadership</span>
+          <span class="skill-tag">Communication</span>
+          <span class="skill-tag">Teamwork</span>
+          <span class="skill-tag">Attention to Detail</span>
+          <span class="skill-tag">Critical Thinking</span>
+          <span class="skill-tag">Adaptability</span>
+          <span class="skill-tag">Self-Motivation</span>
+          <span class="skill-tag">Problem Solving</span>
+          <span class="skill-tag">Time Management</span>
+          <span class="skill-tag">Initiative</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">Projects</div>
+    <h2 class="section-title">Featured Work</h2>
+    <div class="projects-grid">
+
+      <!-- AMS Dashboard -->
+      <div class="project-card">
+        <div class="project-card-header">
+          <span class="project-card-tag">University · R Shiny · Sport Science</span>
+        </div>
+        <img src="AMS.png" alt="Athlete Monitoring System Dashboard — R Shiny" class="project-img">
+        <div class="project-body">
+          <div class="project-title">Athlete Monitoring System Dashboard</div>
+          <p class="project-desc">
+            A full athlete monitoring system built in R Shiny, tracking Physical, Tactical, and Recovery KPIs across a squad using synthetic data. Coaches can select individual players and filter by week, with colour-coded performance zones and automated coach's notes flagging areas of concern — exactly the kind of tool used in elite sport environments.
+          </p>
+          <div class="project-tech">
+            <span class="tech-pill">R</span>
+            <span class="tech-pill">Shiny</span>
+            <span class="tech-pill">ggplot2</span>
+            <span class="tech-pill">KPI Tracking</span>
+            <span class="tech-pill">Data Viz</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Richmond FC — placeholder card (no screenshot available) -->
+      <div class="project-card">
+        <div class="project-card-header">
+          <span class="project-card-tag">Elite Sport · Richmond FC · AFL</span>
+        </div>
+        <div style="height:220px;background:var(--bg-card2);border-bottom:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
+          <div style="font-size:40px;opacity:0.2;">📊</div>
+          <p style="font-size:12px;color:var(--text-muted);letter-spacing:0.06em;text-transform:uppercase;">Confidential — Available Upon Request</p>
+        </div>
+        <div class="project-body">
+          <div class="project-title">AFL Performance Analytics Dashboard</div>
+          <p class="project-desc">
+            Designed and built R Shiny dashboards for the Richmond Football Club VFL performance analysis pipeline. Integrated Champion Data outputs and Sportscode video tags into unified, interactive analytical interfaces used by coaching staff for real-time game day decision making and post-match review.
+          </p>
+          <div class="project-tech">
+            <span class="tech-pill">R</span>
+            <span class="tech-pill">Shiny</span>
+            <span class="tech-pill">Sportscode</span>
+            <span class="tech-pill">Champion Data</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- YourSpace -->
+      <div class="project-card">
+        <div class="project-card-header">
+          <span class="project-card-tag">Personal Project · Web App · YouTube API</span>
+        </div>
+        <img src="yourspace.png" alt="YourSpace — Custom YouTube Dashboard" class="project-img" style="object-position:center;">
+        <div class="project-body">
+          <div class="project-title">YourSpace — Video Dashboard</div>
+          <p class="project-desc">
+            A custom web application integrating the YouTube API to create a curated, ad-free viewing experience outside the YouTube platform. Features auto-refreshing channel feeds, a daily goal tracker, reminders, and a personal calendar — demonstrating full-stack web development and API integration capability built entirely independently.
+          </p>
+          <div class="project-tech">
+            <span class="tech-pill">HTML/CSS/JS</span>
+            <span class="tech-pill">YouTube API</span>
+            <span class="tech-pill">Web App</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Tracker -->
+      <div class="project-card">
+        <div class="project-card-header">
+          <span class="project-card-tag">Personal Project · Mobile App · Activity Tracking</span>
+        </div>
+        <div class="project-img-multi">
+          <img src="activity_tracker_3.png" alt="Activity Tracker — Character Screen">
+          <img src="activity_tracker_1.png" alt="Activity Tracker — Log Activity">
+          <img src="activity_tracker_2.png" alt="Activity Tracker — Workout Questions">
+        </div>
+        <div class="project-body">
+          <div class="project-title">Life RPG — Activity Tracker App</div>
+          <p class="project-desc">
+            A gamified mobile activity tracker built from scratch, where real-world exercise and habits earn XP and level up character stats like Strength, Wisdom, and Discipline. Features a full RPG progression system, detailed workout logging with timed questions, and a modular architecture adaptable into a sport-specific performance tracker or dietary monitoring tool.
+          </p>
+          <div class="project-tech">
+            <span class="tech-pill">HTML/CSS/JS</span>
+            <span class="tech-pill">Mobile App</span>
+            <span class="tech-pill">Gamification</span>
+            <span class="tech-pill">UX Design</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- QUALIFICATIONS -->
+<section id="qualifications">
+  <div class="section-inner">
+    <div class="section-label">Qualifications & Evidence</div>
+    <h2 class="section-title">Credentials</h2>
+    <div class="quals-grid">
+      <div class="qual-card">
+        <div class="qual-icon">✚</div>
+        <div>
+          <div class="qual-name">First Aid Certificate</div>
+          <div class="qual-status active">Current</div>
+        </div>
+      </div>
+      <div class="qual-card">
+        <div class="qual-icon">❤</div>
+        <div>
+          <div class="qual-name">CPR Certificate</div>
+          <div class="qual-status active">Current</div>
+        </div>
+      </div>
+      <div class="qual-card">
+        <div class="qual-icon">✔</div>
+        <div>
+          <div class="qual-name">Working With Children Check</div>
+          <div class="qual-status active">Current</div>
+        </div>
+      </div>
+      <div class="qual-card">
+        <div class="qual-icon">🎓</div>
+        <div>
+          <div class="qual-name">Diploma of Health Science</div>
+          <div class="qual-status">Swinburne University of Technology</div>
+        </div>
+      </div>
+      <div class="qual-card">
+        <div class="qual-icon">🎓</div>
+        <div>
+          <div class="qual-name">Bachelor of Sport & Exercise Science</div>
+          <div class="qual-status active">In Progress — EOY 2026</div>
+        </div>
+      </div>
+      <div class="qual-card">
+        <div class="qual-icon">🏆</div>
+        <div>
+          <div class="qual-name">Performance Analyst Internship</div>
+          <div class="qual-status">Richmond Football Club · 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quals-note">
+      <div class="quals-note-icon">📄</div>
+      <p>
+        Certified copies of all qualifications — including First Aid, CPR, Working With Children Check, and academic transcripts — are <strong>available upon request</strong>. Please reach out via <a href="mailto:luke.lacee14@gmail.com">luke.lacee14@gmail.com</a> and I'll provide them promptly.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO PITCH -->
+<section id="video">
+  <div class="section-inner">
+    <div class="section-label">Elevator Pitch</div>
+    <h2 class="section-title" style="text-align:center;">60 Seconds with Luke</h2>
+    <!-- REPLACE the div below with your YouTube embed once recorded:
+         <iframe width="760" height="428" style="display:block;margin:0 auto;border:1px solid var(--border);"
+           src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
+    -->
+    <div class="video-placeholder">
+      <div class="play-icon">▶</div>
+      <p style="font-size:13px;color:var(--text-muted);letter-spacing:0.08em;text-transform:uppercase;">Video pitch — coming soon</p>
+    </div>
+    <p class="video-note">Record your 45–60 second pitch, upload to YouTube, then swap the placeholder above with your embed link.</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Get in Touch</h2>
+    <div class="contact-grid">
+      <div>
+        <p class="contact-intro">
+          I'm currently open to casual or part-time opportunities in high-performance sport, exercise science, and performance analysis. If you'd like to connect, collaborate, or learn more about my work — reach out.
+        </p>
+        <div class="contact-links">
+          <a href="mailto:luke.lacee14@gmail.com" class="contact-link">
+            <div class="contact-link-icon">✉</div>
+            luke.lacee14@gmail.com
+          </a>
+          <a href="https://www.linkedin.com/in/luke-lacy-5389171a4/" target="_blank" class="contact-link">
+            <div class="contact-link-icon">in</div>
+            linkedin.com/in/luke-lacy
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="contact-form">
+          <div class="form-group">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-input" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" placeholder="What would you like to discuss?"></textarea>
+          </div>
+          <button class="btn-primary" style="align-self:flex-start;">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="logo.png" alt="LL">
+    <div class="footer-name">LUKE<span>.</span>LACY</div>
+  </div>
+  <div class="footer-copy">© 2026 Luke Lacy · Sport Science & Performance Analysis · Melbourne</div>
+</footer>
+
+</body>
+</html>
